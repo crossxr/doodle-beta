@@ -1,39 +1,32 @@
-"use client"
+"use client";
 
 import { useState, useRef, ReactNode, MouseEvent } from "react";
 import { ArrowBigLeft } from "lucide-react";
 import { GlitchText } from "../GlitchText";
-import { useRouter } from "next/navigation";
 
 interface BentoTiltProps {
   children: ReactNode;
   className?: string;
 }
 
-interface CursorPosition {
-  x: number;
-  y: number;
-}
-
 interface BentoCardProps {
-  id: string;
   src: string;
   title: ReactNode;
   description?: string;
-  isComingSoon?: boolean;
-  buttonText?: string;
-  fullStory?: string;
-  type?: 'video' | 'text' | 'ai-chat';
 }
 
-export const BentoTilt: React.FC<BentoTiltProps> = ({ children, className = "" }) => {
+export const BentoTilt: React.FC<BentoTiltProps> = ({
+  children,
+  className = "",
+}) => {
   const [transformStyle, setTransformStyle] = useState<string>("");
   const itemRef = useRef<HTMLDivElement | null>(null);
 
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>): void => {
     if (!itemRef.current) return;
 
-    const { left, top, width, height } = itemRef.current.getBoundingClientRect();
+    const { left, top, width, height } =
+      itemRef.current.getBoundingClientRect();
 
     const relativeX = (event.clientX - left) / width;
     const relativeY = (event.clientY - top) / height;
@@ -63,40 +56,10 @@ export const BentoTilt: React.FC<BentoTiltProps> = ({ children, className = "" }
 };
 
 export const BentoCard: React.FC<BentoCardProps> = ({
-  id,
   src,
   title,
   description,
-  isComingSoon,
-  buttonText,
-  type = 'video'
 }) => {
-  const [cursorPosition, setCursorPosition] = useState<CursorPosition>({ x: 0, y: 0 });
-  const [hoverOpacity, setHoverOpacity] = useState<number>(0);
-  const hoverButtonRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
-
-  const handleMouseMove = (event: MouseEvent<HTMLDivElement>): void => {
-    if (!hoverButtonRef.current) return;
-    const rect = hoverButtonRef.current.getBoundingClientRect();
-
-    setCursorPosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
-  };
-
-  const handleMouseEnter = (): void => setHoverOpacity(1);
-  const handleMouseLeave = (): void => setHoverOpacity(0);
-  
-  const handleClick = () => {
-    if (type === 'ai-chat') {
-      // Handle AI chat functionality
-      console.log('Opening AI chat...');
-    } else {
-      router.push(`/story/${id}`);
-    }
-  };
 
   return (
     <div className="relative size-full">
@@ -114,27 +77,6 @@ export const BentoCard: React.FC<BentoCardProps> = ({
             <p className="mt-3 max-w-64 text-xs md:text-base">{description}</p>
           )}
         </div>
-
-        {isComingSoon && (
-          <div
-            ref={hoverButtonRef}
-            onClick={handleClick}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-white/20"
-          >
-            <div
-              className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
-              style={{
-                opacity: hoverOpacity,
-                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
-              }}
-            />
-            <ArrowBigLeft className="relative z-20" />
-            <p className="relative z-20">{buttonText}</p>
-          </div>
-        )}
       </div>
     </div>
   );
@@ -144,15 +86,15 @@ const Features: React.FC = () => (
   <section className="bg-black pb-52">
     <div className="container mx-auto px-3 md:px-10 p-4">
       <div className="px-5 py-32">
-        <p className="font-circular-web text-lg text-blue-50">
-          Hii sudu....💗😃
-        </p>
-        <GlitchText className="max-w-md font-circular-web text-lg text-blue-50 opacity-50" text="Happy new yearrrrr! What a wonderful journey it have been.... from meeting randomly to being the closest ones 💗.... Life is so unpredictable isn't it? and I am so happy to meet you.....and you know? It is going to be longggggggg......"/>
+        <p className="font-circular-web text-lg text-blue-50">Hii ...</p>
+        <GlitchText
+          className="max-w-md font-circular-web text-lg text-blue-50 opacity-50"
+          text="Nothing much here...!! Happy birthday!"
+        />
       </div>
 
       <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
         <BentoCard
-          id="vacation"
           src="videos/summer.mp4"
           title={
             <>
@@ -160,16 +102,12 @@ const Features: React.FC = () => (
             </>
           }
           description="Travelling with you will be the most amazing thing I will ever do."
-          isComingSoon
-          buttonText="Read story"
-          fullStory="Our summer adventures were filled with unexpected joy and countless memories..."
         />
       </BentoTilt>
 
       <div className="grid h-[350vh] w-full grid-cols-2 grid-rows-7 gap-7">
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
           <BentoCard
-            id="love"
             src="videos/latte.mp4"
             title={
               <>
@@ -177,15 +115,11 @@ const Features: React.FC = () => (
               </>
             }
             description="How beautiful it is to find someone who wants nothing but your company:)"
-            isComingSoon
-            buttonText="Read story"
-            fullStory="The journey of our love story began with a simple coffee date..."
           />
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 ms-0">
           <BentoCard
-            id="yummy"
             src="videos/bakery.mp4"
             title={
               <>
@@ -193,15 +127,11 @@ const Features: React.FC = () => (
               </>
             }
             description="Tere aankhone ke siwa is duniya mein aur rakha kya he?"
-            isComingSoon
-            buttonText="Read Story"
-            fullStory="The aroma of freshly baked treats filled our special moments..."
           />
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_1 md:col-span-1 md:me-0">
           <BentoCard
-            id="crazy"
             src="videos/happy.mp4"
             title={
               <>
@@ -209,8 +139,6 @@ const Features: React.FC = () => (
               </>
             }
             description="When you smile, everything around me stops for a while"
-            isComingSoon
-            buttonText="Read story"
           />
         </BentoTilt>
 
@@ -236,7 +164,6 @@ const Features: React.FC = () => (
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-2 md:row-span-2">
           <BentoCard
-            id="cute"
             src="videos/alright.mp4"
             title={
               <>
@@ -244,15 +171,11 @@ const Features: React.FC = () => (
               </>
             }
             description="Koi no yokan - means closer to love at second sight! It is the feeling when you meet someone that you are going to fall in love with"
-            isComingSoon
-            buttonText="Read story"
-            fullStory="The journey of our love story began with a simple coffee date..."
           />
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 ms-0">
           <BentoCard
-            id="kiss"
             src="videos/kisses.mp4"
             title={
               <>
@@ -260,15 +183,11 @@ const Features: React.FC = () => (
               </>
             }
             description="The most intimate moments we share together are the ones that mean the most."
-            isComingSoon
-            buttonText="Read Story"
-            fullStory="The aroma of freshly baked treats filled our special moments..."
           />
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:row-span-2 md:col-span-1 ms-0">
           <BentoCard
-            id="hugs"
             src="videos/hugs.mp4"
             title={
               <>
@@ -276,15 +195,11 @@ const Features: React.FC = () => (
               </>
             }
             description="Jab koi baat bigaad jaye, jab koi mushkil pad jaye..tum dena saath mera, O humnavaaa!"
-            isComingSoon
-            buttonText="Read Story"
-            fullStory="The aroma of freshly baked treats filled our special moments..."
           />
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 ms-0">
           <BentoCard
-            id="happy"
             src="videos/funplay.mp4"
             title={
               <>
@@ -292,9 +207,6 @@ const Features: React.FC = () => (
               </>
             }
             description="Love meant when someone gets you more than you get yourself. The person who knows you better than you know yourself."
-            isComingSoon
-            buttonText="Read Story"
-            fullStory="The aroma of freshly baked treats filled our special moments..."
           />
         </BentoTilt>
       </div>

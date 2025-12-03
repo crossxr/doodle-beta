@@ -18,7 +18,6 @@ const ImageClipBox: React.FC<ImageClipBoxProps> = ({ src, clipClass }) => (
 );
 
 const Modal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-
   const handleDownload = () => {
     // File URLs to be downloaded
     const files = [
@@ -54,17 +53,17 @@ const Modal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const duration = 10 * 1000;
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
- 
+
     const randomInRange = (min: number, max: number) =>
       Math.random() * (max - min) + min;
- 
+
     const interval = window.setInterval(() => {
       const timeLeft = animationEnd - Date.now();
- 
+
       if (timeLeft <= 0) {
         return clearInterval(interval);
       }
- 
+
       const particleCount = 50 * (timeLeft / duration);
       confetti({
         ...defaults,
@@ -77,7 +76,7 @@ const Modal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
       });
     }, 250);
-  }
+  };
 
   return (
     <AnimatePresence>
@@ -97,13 +96,8 @@ const Modal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         >
           <h2 className="mb-4 text-2xl font-bold">Download Memories</h2>
           <p className="mb-6 text-lg">
-            Select the items you&apos;d like to download.
+            Memories will be downloaded to your device!
           </p>
-          <ul className="mb-6 space-y-2 text-left">
-            <li>Photo Album</li>
-            <li>Wallpapers</li>
-            <li>Video Clips</li>
-          </ul>
           <div className="flex justify-end gap-4">
             <button
               className="rounded-md bg-gray-300 px-4 py-2 text-sm font-medium text-black hover:bg-gray-400"
