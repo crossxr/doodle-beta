@@ -1,14 +1,12 @@
-"use client"
+"use client";
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import AnimatedTitle from "./AnimatedTitle";
 
-
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
-
 
 const About: React.FC = () => {
   useGSAP(() => {
@@ -22,7 +20,7 @@ const About: React.FC = () => {
         pinSpacing: true,
       },
     });
-    
+
     clipAnimation.to(".mask-clip-path", {
       width: "100vw",
       height: "100vh",
@@ -34,7 +32,7 @@ const About: React.FC = () => {
     <div id="about" className="min-h-screen w-screen">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         <p className="font-general text-sm uppercase md:text-[10px]">
-          Dear cotton candy...I mean..dear shradha...
+          Dear cotton candy....
         </p>
         <AnimatedTitle
           title="Is<b>n</b>'t it beautiful <br /> too have <b>a</b>dventure"
@@ -43,18 +41,19 @@ const About: React.FC = () => {
         <div className="about-subtext">
           <p>To see these endless stars sitting Together!!!💗</p>
           <p className="text-gray-500">
-            To have a warm and cozy blanket wrapped around us, while we gaze at the stars and talk about our dreams😃...
+            To have a warm and cozy blanket wrapped around us, while we gaze at
+            the stars and talk about our dreams😃...
           </p>
         </div>
       </div>
       <div className="h-dvh w-screen" id="clip">
-      <div className="mask-clip-path about-image relative">
-        <img
-          src="/img/stargaze.jpg"
-          alt="Background"
-          className="absolute left-0 top-0 size-full object-cover"
-        />
-      </div>
+        <div className="mask-clip-path about-image relative">
+          <img
+            src="/img/stargaze.jpg"
+            alt="Background"
+            className="absolute left-0 top-0 size-full object-cover"
+          />
+        </div>
       </div>
     </div>
   );
