@@ -60,7 +60,6 @@ export const BentoCard: React.FC<BentoCardProps> = ({
   title,
   description,
 }) => {
-
   return (
     <div className="relative size-full">
       <video
