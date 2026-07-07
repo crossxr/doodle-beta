@@ -14,13 +14,13 @@ export const StoryPage: React.FC<{ storyId: string }> = ({ storyId }) => {
   return (
     <div className="relative min-h-screen bg-black text-white">
       <div className="w-full mx-auto px-4 py-8">
-        <button
-          onClick={() => router.back()}
-          className="mb-8 flex items-center gap-2 text-blue-50 hover:text-blue-200"
+        <a
+          href="/"
+          className="mb-8 inline-flex items-center gap-2 text-blue-50 hover:text-blue-200"
         >
           <ArrowLeft size={20} />
           Back to Stories
-        </button>
+        </a>
 
         <div className="grid gap-8 md:grid-cols-2">
           <div className="relative h-[50vh] overflow-hidden rounded-lg md:h-[70vh]">
@@ -51,12 +51,12 @@ export const StoryPage: React.FC<{ storyId: string }> = ({ storyId }) => {
               )}
             </div>
 
-            <button
-              onClick={() => router.push('/')}
-              className="mt-8 w-full rounded-full bg-blue-500 px-6 py-3 text-center font-semibold text-white transition hover:bg-blue-600 md:w-auto"
+            <a
+              href="/"
+              className="mt-8 inline-flex w-full rounded-full bg-blue-500 px-6 py-3 text-center font-semibold text-white transition hover:bg-blue-600 md:w-auto"
             >
               Go to Story Section
-            </button>
+            </a>
           </div>
         </div>
       </div>

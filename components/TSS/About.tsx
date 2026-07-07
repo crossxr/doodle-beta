@@ -32,7 +32,7 @@ const About: React.FC = () => {
     <div id="about" className="min-h-screen w-screen">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         <p className="font-general text-sm uppercase md:text-[10px]">
-          Dear cotton candy....
+          Dear papa....
         </p>
         <AnimatedTitle
           title="Is<b>n</b>'t it beautiful <br /> too have <b>a</b>dventure"

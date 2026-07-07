@@ -1,53 +1,15 @@
 "use client"
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
-import { ArrowBigLeft } from "lucide-react";
-import Button from "./Button";
-import VideoPreview from "./VideoPreview";
 
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [hasClicked, setHasClicked] = useState<boolean>(false);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  const handleVideoLoad = (): void => {
-    setLoading(false);
-  };
-
-  const handleMiniVdClick = (): void => {
-    setHasClicked(true);
-  };
-
-  useGSAP(
-    () => {
-      if (hasClicked && videoRef.current) {
-        gsap.set("#main-video", { visibility: "visible" });
-        gsap.to("#main-video", {
-          transformOrigin: "center center",
-          scale: 1,
-          width: "100%",
-          height: "100%",
-          duration: 1,
-          ease: "power1.inOut",
-          onStart: () => {
-            (async () => {
-              await videoRef.current?.play();
-            })();
-          },
-        });
-      }
-    },
-    {
-      dependencies: [hasClicked],
-      revertOnUpdate: true,
-    }
-  );
+  const [videoReady, setVideoReady] = useState<boolean>(false);
 
   useGSAP(() => {
     gsap.set("#video-frame", {
@@ -69,64 +31,32 @@ const Hero: React.FC = () => {
 
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
-      {loading && (
-        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
-          <div className="three-body">
-            <div className="three-body__dot"></div>
-            <div className="three-body__dot"></div>
-            <div className="three-body__dot"></div>
-          </div>
-        </div>
-      )}
-
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
-        <div>
-          <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
-            <VideoPreview>
-              <div
-                onClick={handleMiniVdClick}
-                className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
-              >
-                <video
-                  ref={videoRef}
-                  src="/videos/hero-1.mp4"
-                  loop
-                  muted
-                  playsInline
-                  className="size-64 origin-center scale-150 object-cover object-center"
-                  onLoadedData={handleVideoLoad}
-                  onError={() => setLoading(false)}
-                />
-              </div>
-            </VideoPreview>
-          </div>
+        <video
+          src="https://ucarecdn.com/d41bcd92-cf4a-45f2-a82c-4de915a3cbd3/adaptive_video/"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className={`absolute left-0 top-0 size-full object-cover object-center transition-opacity duration-700 ${
+            videoReady ? "opacity-100" : "opacity-0"
+          }`}
+          onCanPlayThrough={() => setVideoReady(true)}
+          onError={() => setVideoReady(true)}
+        />
 
-          <video
-            ref={videoRef}
-            src="/videos/hero-1.mp4"
-            loop
-            muted
-            playsInline
-            id="main-video"
-            className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
-            onLoadedData={handleVideoLoad}
-            onError={() => setLoading(false)}
-          />
-          
-          <video
-            src="/videos/hero-1.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute left-0 top-0 size-full object-cover object-center"
-            onLoadedData={handleVideoLoad}
-            onError={() => setLoading(false)}
-          />
-        </div>
+        {!videoReady && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/15 backdrop-blur-[2px]">
+            <div className="flex items-center gap-3 rounded-full bg-white/60 px-4 py-2 text-sm text-black shadow-sm">
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-black/20 border-t-black" />
+              Loading video
+            </div>
+          </div>
+        )}
 
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-white">
           LOVE
@@ -139,15 +69,12 @@ const Hero: React.FC = () => {
             </h1>
 
             <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
-              A Real story by surya <br /> For his beloved
+              A Real story by anshu <br /> For his beloved
             </p>
 
-            <Button
-              id="watch-trailer"
-              title="Watch trailer"
-              leftIcon={<ArrowBigLeft />}
-              containerClass="bg-yellow-300 flex-center gap-1"
-            />
+            <span className="inline-flex rounded-full bg-yellow-300 px-7 py-3 font-general text-xs uppercase text-black">
+              Watch trailer
+            </span>
           </div>
         </div>
       </div>

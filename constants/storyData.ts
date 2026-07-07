@@ -13,7 +13,7 @@ export const STORY_DATA: StoryContent[] = [
     ]),
     description: "Everywhere we will go, we will have a lot of fun I swear!!:)",
     buttonText: "Read Summer Story",
-    fullStory: "Remember our first meet? On the blue flag beach.... It was really an amazing moment for me 🥹! Two really random strangers meeting for first time, smiling and we didn't have anything to say! But... it worked! Sometimes I wonder what I did to deserve you, to deserve your love 🥹💗! Shit... I'm being sukumari in your words 😂! We will have a lot of fun punu... travelling the world together...eating a lot of veggies and much more! Just be with me....."
+    fullStory: "Remember our first meet? On the blue flag beach.... It was really an amazing moment for me 🥹! Two really random strangers meeting for first time, smiling and we didn't have anything to say! But... it worked! Sometimes I wonder what I did to deserve you, to deserve your love 🥹💗! Shit... I'm being sukumari in your words 😂! We will have a lot of fun papa... travelling the world together...eating a lot of veggies and much more! Just be with me....."
   },
   {
     id: "love",

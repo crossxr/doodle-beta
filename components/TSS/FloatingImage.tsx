@@ -2,7 +2,6 @@
 
 import gsap from "gsap";
 import { useRef, MouseEvent } from "react";
-import Button from "./Button";
 import AnimatedTitle from "./AnimatedTitle";
 import { useRouter } from "next/navigation";
 
@@ -104,12 +103,12 @@ const FloatingImage: React.FC = () => {
             <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
               Camping in the woods, travelling the world together and many more dreams. You wanted to learn guitar, isn&apos;t it? It will be fun!!
             </p>
-            <Button
-              id="realm-btn"
-              title="discover prologue"
-              containerClass="mt-5"
-              onClick={onClick}
-            />
+            <a
+              href="/prologue"
+              className="mt-5 inline-flex rounded-full bg-violet-50 px-7 py-3 font-general text-xs uppercase text-black"
+            >
+              discover prologue
+            </a>
           </div>
         </div>
       </div>
