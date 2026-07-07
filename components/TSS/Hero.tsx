@@ -1,15 +1,56 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
+import Hls from "hls.js";
 
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero: React.FC = () => {
   const [videoReady, setVideoReady] = useState<boolean>(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const streamUrl =
+    "https://ucarecdn.com/d41bcd92-cf4a-45f2-a82c-4de915a3cbd3/adaptive_video/";
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        enableWorker: true,
+        startLevel: -1,
+      });
+
+      hls.loadSource(streamUrl);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(() => undefined);
+      });
+
+      hls.on(Hls.Events.ERROR, (_, data) => {
+        if (data.fatal) {
+          setVideoReady(true);
+        }
+      });
+
+      return () => {
+        hls.destroy();
+      };
+    }
+
+    if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = streamUrl;
+      video.play().catch(() => undefined);
+    }
+  }, []);
 
   useGSAP(() => {
     gsap.set("#video-frame", {
@@ -36,7 +77,7 @@ const Hero: React.FC = () => {
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
         <video
-          src="https://ucarecdn.com/d41bcd92-cf4a-45f2-a82c-4de915a3cbd3/adaptive_video/"
+          ref={videoRef}
           autoPlay
           loop
           muted
@@ -45,7 +86,7 @@ const Hero: React.FC = () => {
           className={`absolute left-0 top-0 size-full object-cover object-center transition-opacity duration-700 ${
             videoReady ? "opacity-100" : "opacity-0"
           }`}
-          onCanPlayThrough={() => setVideoReady(true)}
+          onCanPlay={() => setVideoReady(true)}
           onError={() => setVideoReady(true)}
         />
 
