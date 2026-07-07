@@ -1,32 +1,17 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function VideoTextPage() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.75; // Slow down video slightly for better background effect
-    }
-  }, []);
-
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {/* Video Background */}
+      {/* Image Background */}
       <div className="absolute inset-0 h-full w-full">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
+        <img
+          src="/hero.png"
+          alt="Hero background"
           className="h-full w-full object-cover"
-          onError={(e) => console.log("Video error:", e)}
-        >
-          <source src="/videos/summer.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        />
       </div>
 
       {/* Content Container */}

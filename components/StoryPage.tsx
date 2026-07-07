@@ -25,11 +25,9 @@ export const StoryPage: React.FC<{ storyId: string }> = ({ storyId }) => {
         <div className="grid gap-8 md:grid-cols-2">
           <div className="relative h-[50vh] overflow-hidden rounded-lg md:h-[70vh]">
             {story.type === 'video' && story.src ? (
-              <video
+              <img
                 src={story.src}
-                loop
-                muted
-                autoPlay
+                alt={String(story.title)}
                 className="size-full object-cover"
               />
             ) : (

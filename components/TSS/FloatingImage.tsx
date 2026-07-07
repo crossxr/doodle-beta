@@ -6,14 +6,14 @@ import AnimatedTitle from "./AnimatedTitle";
 import { useRouter } from "next/navigation";
 
 const FloatingImage: React.FC = () => {
-  const frameRef = useRef<HTMLVideoElement | null>(null);
+  const frameRef = useRef<HTMLImageElement | null>(null);
   const router = useRouter();
 
   const onClick = () => {
     router.push("/prologue");
   }
 
-  const handleMouseMove = (e: MouseEvent<HTMLVideoElement>): void => {
+  const handleMouseMove = (e: MouseEvent<HTMLImageElement>): void => {
     const { clientX, clientY } = e;
     const element = frameRef.current;
     if (!element) return;
@@ -61,17 +61,15 @@ const FloatingImage: React.FC = () => {
           <div className="story-img-container">
             <div className="story-img-mask">
               <div className="story-img-content">
-                <video
+                <img
                   ref={frameRef}
                   onMouseMove={handleMouseMove}
                   onMouseLeave={handleMouseLeave}
                   onMouseUp={handleMouseLeave}
                   onMouseEnter={handleMouseLeave}
-                  src="/videos/camping.mp4"
+                  src="/hero.png"
+                  alt="Camping"
                   className="object-contain"
-                  autoPlay
-                  loop
-                  muted
                 />
               </div>
             </div>

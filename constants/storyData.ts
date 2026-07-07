@@ -5,7 +5,7 @@ export const STORY_DATA: StoryContent[] = [
   {
     id: "vacation",
     type: "video",
-    src: "/videos/summer.mp4",
+    src: "/hero.png",
     title: React.createElement('span', {}, [
       'vacati',
       React.createElement('b', { key: 'o' }, 'o'),
@@ -18,7 +18,7 @@ export const STORY_DATA: StoryContent[] = [
   {
     id: "love",
     type: "video",
-    src: "/videos/latte.mp4",
+    src: "/kiss.png",
     title: React.createElement('span', {}, [
       'Lo',
       React.createElement('b', { key: 'v' }, 'v'),
@@ -31,7 +31,7 @@ export const STORY_DATA: StoryContent[] = [
   {
     id: "yummy",
     type: "video",
-    src: "/videos/bakery.mp4",
+    src: "/bakery.png",
     title: React.createElement('span', {}, [
       'Yu',
       React.createElement('b', { key: 'm' }, 'm'),
@@ -44,7 +44,7 @@ export const STORY_DATA: StoryContent[] = [
   {
     id: "crazy",
     type: "video",
-    src: "/videos/happy.mp4",
+    src: "/happy.png",
     title: React.createElement('span', {}, [
       'Cr',
       React.createElement('b', { key: 'a' }, 'a'),
@@ -57,7 +57,7 @@ export const STORY_DATA: StoryContent[] = [
   {
     id: "cute",
     type: "video",
-    src: "/videos/alright.mp4",
+    src: "/alright.png",
     title: React.createElement('span', {}, [
       'C',
       React.createElement('b', { key: 'u' }, 'u'),
@@ -70,7 +70,7 @@ export const STORY_DATA: StoryContent[] = [
   {
     id: "kiss",
     type: "video",
-    src: "/videos/kisses.mp4",
+    src: "/kiss.png",
     title: React.createElement('span', {}, [
       'K',
       React.createElement('b', { key: 'i' }, 'i'),
@@ -83,7 +83,7 @@ export const STORY_DATA: StoryContent[] = [
   {
     id: "hugs",
     type: "video",
-    src: "/videos/hugs.mp4",
+    src: "/hugs.png",
     title: React.createElement('span', {}, [
       'H',
       React.createElement('b', { key: 'u' }, 'u'),
@@ -96,7 +96,7 @@ export const STORY_DATA: StoryContent[] = [
   {
     id: "happy",
     type: "video",
-    src: "/videos/funplay.mp4",
+    src: "/funplay.png",
     title: React.createElement('span', {}, [
       'H',
       React.createElement('b', { key: 'a' }, 'a'),
@@ -122,7 +122,7 @@ export const STORY_DATA: StoryContent[] = [
   {
     id: "ai-chat",
     type: "ai-chat",
-    src: "videos/chat.mp4",
+    src: "/vietnam.png",
     title: React.createElement('span', {}, [
       'Ch',
       React.createElement('b', { key: 'a' }, 'a'),
