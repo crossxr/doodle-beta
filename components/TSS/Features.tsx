@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef, ReactNode, MouseEvent } from "react";
+import { useEffect, useRef, ReactNode, MouseEvent } from "react";
 import { ArrowBigLeft } from "lucide-react";
 import { GlitchText } from "../GlitchText";
+import Hls from "hls.js";
 
 interface BentoTiltProps {
   children: ReactNode;
@@ -60,13 +61,45 @@ export const BentoCard: React.FC<BentoCardProps> = ({
   title,
   description,
 }) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({ enableWorker: true, startLevel: -1 });
+
+      hls.loadSource(src);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(() => undefined);
+      });
+
+      return () => {
+        hls.destroy();
+      };
+    }
+
+    if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = src;
+      video.play().catch(() => undefined);
+    }
+  }, [src]);
+
   return (
     <div className="relative size-full">
       <video
-        src={src}
+        ref={videoRef}
         loop
         muted
         autoPlay
+        playsInline
+        preload="metadata"
         className="absolute left-0 top-0 size-full object-cover object-center"
       />
       <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
@@ -94,7 +127,7 @@ const Features: React.FC = () => (
 
       <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
         <BentoCard
-          src="videos/summer.mp4"
+          src="https://ucarecdn.com/9d39212b-0a95-49a1-9d9f-bfb96dfe7d5c/adaptive_video/"
           title={
             <>
               vacati<b>o</b>n
@@ -107,7 +140,7 @@ const Features: React.FC = () => (
       <div className="grid h-[350vh] w-full grid-cols-2 grid-rows-7 gap-7">
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
           <BentoCard
-            src="videos/latte.mp4"
+              src="https://ucarecdn.com/5b2a6818-5094-4c20-ade0-39d329b8a599/adaptive_video/"
             title={
               <>
                 Lo<b>v</b>e
@@ -119,7 +152,7 @@ const Features: React.FC = () => (
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 ms-0">
           <BentoCard
-            src="videos/bakery.mp4"
+              src="https://ucarecdn.com/5dcc70d5-7852-4b07-a785-a65433822d11/adaptive_video/"
             title={
               <>
                 yu<b>m</b>my
@@ -131,7 +164,7 @@ const Features: React.FC = () => (
 
         <BentoTilt className="bento-tilt_1 md:col-span-1 md:me-0">
           <BentoCard
-            src="videos/happy.mp4"
+              src="https://ucarecdn.com/ecb128f8-47b9-4cfa-89ae-9b3db268b8f5/adaptive_video/"
             title={
               <>
                 cr<b>a</b>zy
@@ -153,17 +186,19 @@ const Features: React.FC = () => (
 
         <BentoTilt className="bento-tilt_2">
           <video
-            src="videos/vietnam.mp4"
+            src="https://ucarecdn.com/75f5df62-db36-42da-8371-d6c2474a0087/adaptive_video/"
             loop
             muted
             autoPlay
+            playsInline
+            preload="metadata"
             className="size-full object-cover object-center"
           />
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-2 md:row-span-2">
           <BentoCard
-            src="videos/alright.mp4"
+              src="https://ucarecdn.com/6ee822b4-d4ea-47a0-9fd5-64e42efe3c4a/adaptive_video/"
             title={
               <>
                 Cu<b>t</b>e
@@ -175,7 +210,7 @@ const Features: React.FC = () => (
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 ms-0">
           <BentoCard
-            src="videos/kisses.mp4"
+              src="https://ucarecdn.com/364cc658-e335-4853-9648-e17a6d8761bf/adaptive_video/"
             title={
               <>
                 Ki<b>s</b>s
@@ -187,7 +222,7 @@ const Features: React.FC = () => (
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:row-span-2 md:col-span-1 ms-0">
           <BentoCard
-            src="videos/hugs.mp4"
+              src="https://ucarecdn.com/971c909a-2055-490f-a13d-7793da7c2cf7/adaptive_video/"
             title={
               <>
                 H<b>u</b>gs
@@ -199,7 +234,7 @@ const Features: React.FC = () => (
 
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 ms-0">
           <BentoCard
-            src="videos/funplay.mp4"
+              src="https://ucarecdn.com/37e5ecef-591e-4448-a162-5b6a02bde42e/adaptive_video/"
             title={
               <>
                 <b>H</b>appy
