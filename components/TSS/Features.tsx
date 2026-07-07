@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, ReactNode, MouseEvent } from "react";
+import { useEffect, useRef, useState, ReactNode, MouseEvent } from "react";
 import { ArrowBigLeft } from "lucide-react";
 import { GlitchText } from "../GlitchText";
 import Hls from "hls.js";
